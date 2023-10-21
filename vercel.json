@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name": "tut",
+    "name": "tuth",
     "builds": [
         {
             "src": "index.js",
