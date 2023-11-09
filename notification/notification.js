@@ -15,8 +15,7 @@ const notificationSchema = new mongoose.Schema({
       partnerAdminMongoId: mongoose.Schema.Types.ObjectId,
       centerNameC:String,
       centerCodeC:String,
-      adminNameC:String,
-      timestamp: { timestamps: true },
-});
+      adminNameC:String
+}, { timestamps: true });
 
 module.exports = mongoose.model('notification', notificationSchema);
