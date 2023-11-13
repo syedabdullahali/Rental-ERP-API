@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Notification = require("../notification/notification");
-// const { io } = require(" to be added");
-const notification = require("../notification/notification");
 const nodemailer = require("nodemailer");
 const axios = require('axios');
+
 // Function for mail 
 function mailFunction(email) {
     let transporter = nodemailer.createTransport({
@@ -41,7 +40,7 @@ router.post("/notifications", async (req, res) => {
         const task = await Notification.create({
             ...req.body,
         });
-        // io.emit("Notifications", task);
+        io.emit("Notifications",{message : task});
 
         res.status(200).json({
             success: true,
