@@ -5,7 +5,7 @@ const nodemailer = require("nodemailer");
 const axios = require('axios');
 
 // Function for mail 
-function mailFunction(email) {
+function mailFunction(email, subjectBody, textBody) {
     let transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -17,10 +17,8 @@ function mailFunction(email) {
     let mailOptions = {
         from: process.env.NODEMAILER_EMAIL,
         to: email,
-        subject: "//////// SUBJECT ///////////////",
-        text: `     Hello,
-      ////////////// Content ?? ??//////////////////
-              `,
+        subject:subjectBody,
+        text:textBody,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -190,10 +188,13 @@ router.post("/send-sms", async (req, res) =>{
 
 // mail api for email array 
 router.post("/mail", async (req, res) =>{
+    console.log("hello")
     try{
         const emails = req.body.emails;
+        const subject = req.body.subject;
+        const text = req.body.text;
         for(let i=0;i<emails.length ;i++) {
-            mailFunction(emails[i]);
+            mailFunction(emails[i] , subject , text);
         }
         res.status(200).json({
             success: true,

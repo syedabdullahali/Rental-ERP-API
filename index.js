@@ -119,8 +119,7 @@ app.use('/batchCategory',userValidate,require('./NewRoutes/batchCategory'))
 app.use('/eventDetails',userValidate,require('./NewRoutes/event'))
 app.use('/bookingEvent',userValidate,require('./NewRoutes/bookingEvent'))
 app.use('/search-filter',userValidate,require('./SearchFilter/SearchFilter'))
-
-app.use(require('./Routes/notification'))
+app.use('/notification', require('./Routes/notification'))
 
 // const notificationSchema2 = require('./notification/notification')
 const { createServer } = require("http");
