@@ -10,10 +10,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 const port = process.env.PORT || 8000
-
-// const socketio = require('socket.io');
-
-
 app.use(express.json())
 app.use('/enquiryForm', userValidate, require('./Routes/enquiryForm'));
 app.use('/signup', require('./Routes/signup'));
@@ -123,14 +119,21 @@ app.use('/batchCategory',userValidate,require('./NewRoutes/batchCategory'))
 app.use('/eventDetails',userValidate,require('./NewRoutes/event'))
 app.use('/bookingEvent',userValidate,require('./NewRoutes/bookingEvent'))
 app.use('/search-filter',userValidate,require('./SearchFilter/SearchFilter'))
-
-app.use(require('./Routes/notification'))
+app.use('/notification', require('./Routes/notification'))
 
 // const notificationSchema2 = require('./notification/notification')
-
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+const httpServer = createServer(app);
+const io = new Server(httpServer, { });
 
 //admin router
-
+io.on('connection', (socket) => {
+    console.log('A user connected');
+      socket.on('disconnect', () => {
+      console.log('User disconnected');
+    });
+  });
 
 const activeServerConection = ()=>{
     //    const Server = socketio.Server
